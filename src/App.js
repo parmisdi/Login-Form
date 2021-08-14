@@ -1,12 +1,12 @@
 import './App.css';
-import Document from './component/document.js';
+import CommentsComponent from './component/comments.js';
 
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Document />
+        <CommentsComponent />
       </header>
     </div>
   );
