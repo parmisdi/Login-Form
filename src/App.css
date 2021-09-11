@@ -1,73 +1,129 @@
 * {
-    text-decoration: none;
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  font-family: Verdana, sans-serif;
 }
 body {
-    background-color: rgb(238, 234, 234);
+  background-color: rgb(189, 177, 255);
 }
 .Wrapper {
-    width: 100%;
-    height: 750px;
-}
-.purple {
-    width: 100%;
-    height: 200px;
-    background-color: rgb(117,0,185);
+  width: 100%;
+  height: 100vh;
 }
 .contentWrapper {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-h1 {
-    margin: 20px 0 30px 0;
+.purple {
+  width: 100%;
+  height: 200px;
+  background-color: rgb(13, 1, 43);
 }
 .content {
-    width: 50%;
+  width: 60%;
+  margin-top: 100px;
+  padding: 25px;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+/* @media only screen and (max-width: 977px) {
+  .content {
+    width: 43%;
     margin-top: 100px;
     padding: 25px;
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    flex-direction: column;
+  }
+  input[type=text]{
+    width: 80%;
+  }
+  input[type=button]{
+    width: 20%;
+  }
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+} */
+input[type=text] {
+  width: 20%;
+  height: 3 0px;
+  margin: 20px 30px;
+  padding: 5px;
 }
-#submited {
-    width: 100%;    
-    margin-top: 30px;
+input[type=button] {
+  padding: 7px 30px;
+  margin-left: 40px;
+  border: 1px solid gray;
+  border-radius: 3px;
+  color: white;
+  background-color: black;
 }
-input[type="text"] {
-    margin-right: 30px;
-    width: 24%;
-    height: 40px;
+input[type=button]:hover {
+  background-color: rgb(8, 2, 43);
+  box-shadow: 0 12px 16px 0 rgba(63, 63, 63, 0.24),0 17px 50px 0 rgba(66, 66, 66, 0.19);
 }
-input[type="button"] {
-    background-color: black;
-    border: none;
-    color: white;
-    padding: 11px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
+h1 {
+  margin-top: 30px;
 }
-input[type="button"]:hover {
-    box-shadow: 0 12px 13px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+.comments {
+  width: 90%;
+  margin: 20px;
 }
-.deleteBtn {
-    background-color: black;
-    border: none;
-    color: white;
-    padding: 5px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 1.1rem;
-    margin: 4px 2px;
-    cursor: pointer;
+.buttonStyle {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
-.deleteBtn:hover {
-    box-shadow: 0 12px 13px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+.submitted {
+  width: 100%;
+  border: 1px  dotted gray;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+.trash {
+  width: 30px;
+  margin: 0 20px ;
+}
+.editButton {
+  width: 8%;
+  padding: 5px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  background-color: black;
+}
+.editButton:hover {
+  background-color: rgb(19, 13, 53);
+  box-shadow: 0 12px 16px 0 rgba(63, 63, 63, 0.24),0 17px 50px 0 rgba(66, 66, 66, 0.19);
+}
+.likeDislike {
+  width: 20px;
+  margin: 10px;
+}
+.submittedCm {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0 10px 20px;
+}
+.submittedCm input {
+  width: 30%;
+  padding: 10px;
+  margin: 10px 0 10px 18px;
+}
+.submittedCm textarea {
+  width: 93%;
+ margin: 10px 0 0 15px;
+}
+h6 {
+  margin-right: 10px;
+}
+h5 {
+  font-size: 1rem;
 }

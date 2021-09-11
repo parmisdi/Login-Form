@@ -1,76 +1,101 @@
-import React from 'react';
-import Comment  from './comment';
+import React, { useState } from 'react';
+import Comments from './comment.js'
 
-class CommentsComponent extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      userName: '',
-      comment: '',
-      comments: [],
-      submit: false,
-      deleteComponent: ''
-    }
-    this.handleInput = this.handleInput.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleDelete = this.handleDelete .bind(this)
+function CommentsComponent() {
+  const [userName, setUserName] = useState('');
+  const [comment, setComment] = useState('');
+  const [comments, setComments] = useState([]);
+  const [error, setError] = useState('');
+  const [succesMessage, setSuccesMessage] = useState('');
+
+  const getUserNameValue = (e) => {
+    setUserName(e.target.value)
   }
 
-  handleInput (e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
+  const getCommentValue = (e) => {
+    setComment(e.target.value)
   }
 
-  handleSubmit () {
-    if (!this.state.submit) {
-      this.setState({
-        userName: '',
-        comment: ''
-      })
-      const comment = {
-        userName: this.state.userName,
-        comment: this.state.comment
+  const handelSubmit = () => {
+    if (userName !== '' && comment !== '') {
+      const addedComment = {
+        userName : userName,
+        comment : comment,
+        dislike: 0,
+        like: 0,
+        isLikedOrDisliked: false
       }
-      const currentComments = [...this.state.comments, comment]
-      this.setState({
-        comments: currentComments
-      })
+      const currentComments = [...comments, addedComment]
+      setUserName('')
+        setComment('')
+        setComments(currentComments)
+        setError('')
+        setSuccesMessage('Your comment submitted succesfuly')
+    }else {
+      setError('All feilds are required!')
+        setSuccesMessage('')
     }
   }
-  handleDelete (index,e) {
-    // const newComment = [...this.state.comments,comment];
-    // newComment.splice(index, 1)
-    // this.setState({
-    //   comment: this.state.comments
-    // })
-    // const newComment = [...this.state.comments];
-    // newComment.splice(index)
-    // this.setState({
-    // });
+
+  const handelKeyPress = (e) => {
+    if (e.charcode === 13) {
+      handelSubmit()
+    }
   }
 
-  render () {
-    return (
-      <div className="Wrapper">
-        <div className="purple">
-          <div className="contentWrapper">
-            <div className='content'>
-              <h1>Form</h1>
-              User name: <input type='text' name='userName' value={this.state.userName} onChange={ e => this.handleInput(e)} />
-              Comment: <input type='text' name='comment' value={this.state.comment} onChange={ e => this.handleInput(e)} />
-              <input type='button' value='Submit' onClick={this.handleSubmit} />
-              <div id="submited">
-                {this.state.comments.map((a, index) =>{
-                return <Comment key={index} userName={a.userName} comment={a.comment} delete={() => this.handleDelete(index)}/>
-                })}
-              </div>
+  const handleInputs = (e, index) => {
+    const currentComments = [...comments]
+    currentComments[index].[e.target.name] = e.target.value
+    setComments(currentComments)
+  }
+
+  const handleDelete = (index) => {
+    const currentComments = [...comments]
+    currentComments.splice(index, 1)
+    setComments(currentComments)
+  }
+
+  const handleLike = (index, action) => {
+    const currentComment = [...comments]
+    if (currentComment[index].isLikedOrDisliked) {
+      if(action === 'like' && currentComment[index].like === 0) {
+        currentComment[index].like = currentComment[index].like + 1
+        currentComment[index].dislike = currentComment[index].dislike - 1
+        setComments(currentComment)
+      } else if (action === 'dislike' && currentComment[index].dislike === 0) {
+          currentComment[index].like = currentComment[index].like - 1
+          currentComment[index].dislike = currentComment[index].dislike + 1
+          setComments(currentComment)
+        }
+    } else {
+        currentComment[index].[action] = currentComment[index].[action] + 1
+        currentComment[index].isLikedOrDisliked = true
+        setComments(currentComment)
+      }
+  }
+  return (
+    <div className='Wrapper'>
+      <div className='purple'>
+        <div className='contentWrapper'>
+          <div className='content'>
+              <h1>Login Form</h1>
+              <label for='userName'>User Name: </label>
+              <input type='text' name='userName' value={userName} onChange={getUserNameValue} />
+              <label for='comment'>Comment: </label>
+              <input type='text' name='comment' value={comment} onChange={getCommentValue}/>
+              <input type='button' value='Submit' onClick={handelSubmit} onKeyPress={handelKeyPress}/>
+              {succesMessage !== '' && <h5 style={{color:'black'}}> {succesMessage} </h5>}
+              { error !== '' && <h5 style={{color:'red'}}>{error}</h5>}
+            <div className='comments'>
+              {comments.map((comment ,index) =>{
+                return <Comments key={index} {...comment} onLikeHandle={(action) => handleLike(index, action)} onInputChange={(e) => handleInputs(e, index)} delete={() => handleDelete(index)}/>
+              })}
             </div>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  )
 }
 
 export default CommentsComponent

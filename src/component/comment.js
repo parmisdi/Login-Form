@@ -1,17 +1,44 @@
-function Comment(props) {
+import React, { useState } from 'react';
+import Dislike from './dislike2.svg'
+import Like from './like.svg'
+import Trash from './trash.svg'
+ 
+function Comments(props) {
+    const [userName, setUserName] = useState('');
+    const [comment, setComment] = useState('');
+    const [edit, setedit] = useState(true);
+    const [dislike, setDislike] = useState(props.dislike);
+    const [like, setLike] = useState(props.like);
+    const [isLikedOrDisliked, setIsLikedOrDisliked] = useState(false);
+    
+    const handleEdit = () => {
+        setedit(!edit)
+    }
+
     return (
-        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',marginBottom: '20px',border:'1px  dotted gray',padding:'30px 0'}}>
-            <div className='img' style={{ width: '100px', height: '100px', background: 'black',marginLeft: '20px'}}></div>    
-            name:
-            <div className='userName' style={{marginRight: '20px',fontSize:'1.2rem'}}>
-                {props.userName}
+        <div className='submitted'>
+            <div className='submittedCm'>
+                <label for="userName">User name: </label>
+                <input name='userName' value={props.userName} onChange={(e) => props.onInputChange(e)} disabled={edit} style={edit ? { border : 'none'} : {}}/>
+                <label for="comment">Comment: </label>
+                <textarea name='comment' value={props.comment} rows="8" cols="20"  onChange={(e) => props.onInputChange(e)} disabled={edit} style={edit ? { border : 'none'} : {}}/>
             </div>
-            comment: 
-            <div className='comment' style={{marginRight: '40px',fontSize:'1.2rem'}}>
-                {props.comment}
+            <div className="buttonStyle">
+                <div className='likeAction'>
+                    <h6>like:{props.like}</h6>
+                    <h6>dislike:{props.dislike}</h6>
+                </div>
+                <img src={Like} className='likeDislike' alt='like' onClick={() => props.onLikeHandle('like')} />
+                <img src={Dislike} className='likeDislike' alt='dislike' onClick={() => props.onLikeHandle('dislike')} />
+                { edit ? (
+                        <button className='editButton' onClick={handleEdit}>Edit</button>
+                    ) : (
+                        <button className='editButton' onClick={handleEdit}>Update</button>
+                )}
+                    <img src={Trash} alt='trash' className='trash' onClick={props.delete} />
             </div>
-            <button className='deleteBtn' onClick={props.delete}>DELETE</button>
-        </div>
+        </div> 
     )
-  }
-export default Comment
+}
+
+export default Comments
